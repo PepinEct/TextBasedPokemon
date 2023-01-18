@@ -1,0 +1,34 @@
+{
+    "name": "Johan",
+    "template": ". .\n _",
+    "moveset": {
+        "move1": {
+            "slogan": "",
+            "SP_DMG": 1,
+            "DMG": 1
+        },
+        "move2": {
+            "slogan": "",
+            "SP_DMG": 1,
+            "DMG": 1
+        },
+        "move3": {
+            "slogan": "",
+            "SP_DMG": 1,
+            "DMG": 1
+        },
+        "move4": {
+            "slogan": "",
+            "SP_DMG": 1,
+            "DMG": 1
+        }
+    },
+    "HP": 15,
+    "LVL": 1,
+    "items": [],
+    "ATT": 5,
+    "SP_ATT": 5,
+    "DEF": 5,
+    "SP_DEF": 5,
+    "SPEED": 5
+}
