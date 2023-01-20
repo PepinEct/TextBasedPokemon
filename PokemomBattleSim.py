@@ -49,7 +49,7 @@ os.system('MODE 10000,10000')
 MAIN_POK_POS = ((6, 8), (16, 19))
 MAIN_POK_HPBAR_POS = (MAIN_POK_POS[0][0]+3, MAIN_POK_POS[0][1]-1)
 OPP_PO_POS = ((35, 20), (40, 27))
-OPP_POK_HPBAR_POS = (OPP_PO_POS[0][0]-1, OPP_PO_POS[0][1]-2)
+OPP_POK_HPBAR_POS = (OPP_PO_POS[0][0]-1, OPP_PO_POS[0][1]-4)
 FILLER_ICON = '~'
 
 
@@ -134,7 +134,7 @@ class POKEMOM:
 class placeholder:
     #a pokemom placeholder
     def __init__(self) -> None:
-        self.template = ''
+        self.template = '          \n          \n          \n          \n          \n          \n          \n          \n          \n          '
 
 
 def isEven(num):
