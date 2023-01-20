@@ -1,0 +1,34 @@
+{
+    "name": "Johan",
+    "template": ". .\n _",
+    "moveset": {
+        "Testing": {
+            "slogan": "%name% is testing you",
+            "SP_DMG": 1,
+            "DMG": 3
+        },
+        "Inspecting": {
+            "slogan": "%name%: hmmm yea this is it",
+            "SP_DMG": 1,
+            "DMG": 5
+        },
+        "Slap": {
+            "slogan": "%name% slapped %target% for sucking at everything",
+            "SP_DMG": 1,
+            "DMG": 4
+        },
+        "Fail": {
+            "slogan": "%name% failed.",
+            "SP_DMG": 1,
+            "DMG": 0
+        }
+    },
+    "HP": 20,
+    "LVL": 1,
+    "items": [],
+    "ATT": 5,
+    "SP_ATT": 5,
+    "DEF": 5,
+    "SP_DEF": 5,
+    "SPEED": 6
+}

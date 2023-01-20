@@ -1,0 +1,34 @@
+{
+    "name": "ClownMan",
+    "template": "+     +\n'\n\n\\_____/",
+    "moveset": {
+        "Be goofy": {
+            "slogan": "%target% got confused and it caused permanent brain damage.",
+            "SP_DMG": 1,
+            "DMG": 5
+        },
+        "Clown dance": {
+            "slogan": "With the sexy dancemoves of %name% %target% just wants to cry.",
+            "SP_DMG": 1,
+            "DMG": 3
+        },
+        "Nothing": {
+            "slogan": "Nope i didnt lie this does absolutly nothing.",
+            "SP_DMG": 1,
+            "DMG": 0
+        },
+        "Laugh": {
+            "slogan": "%name% laughed at %target% and started to cry!",
+            "SP_DMG": 1,
+            "DMG": 2
+        }
+    },
+    "HP": 36,
+    "LVL": 1,
+    "items": [],
+    "ATT": 5,
+    "SP_ATT": 5,
+    "DEF": 5,
+    "SP_DEF": 5,
+    "SPEED": 4
+}

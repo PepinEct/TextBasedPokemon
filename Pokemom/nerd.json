@@ -1,0 +1,34 @@
+{
+    "name": "Nerdman",
+    "template": "(|  |)\n------\n",
+    "moveset": {
+        "Nerd": {
+            "slogan": "%name% started talking about nerdstuff, %target% fell asleep!",
+            "SP_DMG": 1,
+            "DMG": 10
+        },
+        "Wear glasses": {
+            "slogan": "%name% putted on glasses, but %target% figured it out!",
+            "SP_DMG": 1,
+            "DMG": 0
+        },
+        "Go to class": {
+            "slogan": "%name% sorry be right back, gotta go!",
+            "SP_DMG": 1,
+            "DMG": 0
+        },
+        "Study": {
+            "slogan": "%name% is studying.",
+            "SP_DMG": 1,
+            "DMG": 6
+        }
+    },
+    "HP": 10,
+    "LVL": 1,
+    "items": [],
+    "ATT": 5,
+    "SP_ATT": 5,
+    "DEF": 5,
+    "SP_DEF": 5,
+    "SPEED": 5
+}
