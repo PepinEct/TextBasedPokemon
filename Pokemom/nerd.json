@@ -1,6 +1,6 @@
 {
     "name": "Nerdman",
-    "template": "(|  |)\n------\n",
+    "template": "[0]-[0]\n\n.     .\n -----\n",
     "moveset": {
         "Nerd": {
             "slogan": "%name% started talking about nerdstuff, %target% fell asleep!",
