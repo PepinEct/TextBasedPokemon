@@ -378,6 +378,7 @@ class GUI:
             #Loops for choice
             pressed = False
             self.update()
+            time.sleep(0.2)
             while True:
                 
                 if keyboard.is_pressed(RIGHT_KEY):
@@ -475,82 +476,89 @@ def makeTemplate(name, LVL=1, template='',HP=15, ATT=5, SP_ATT=5, DEF=5, SP_DEF=
         json.dump(template, file, indent=4)
 
 if __name__ == '__main__': #for testing
-
-    #Initializing info
-    gui = GUI()
-    
-    #pokemom gets chosen randomly, in the future there will be an menu for that
-    availiblePok = os.listdir(POKEMOM_FOLDER)
-    MainPok = POKEMOM(f"{POKEMOM_FOLDER}/{availiblePok[random.randint(0, len(availiblePok)-1)]}") #random file from the availible folder
-    OppPok = POKEMOM(f"{POKEMOM_FOLDER}/{availiblePok[random.randint(0, len(availiblePok)-1)]}")
-    MainPok.HEALTHBAR = HEALTHBAR(MainPok.HP)
-    OppPok.HEALTHBAR = HEALTHBAR(OppPok.HP)
-
-    #Rendering
-    gui.renderPok(MainPok, MAIN_POK_POS[0], MAIN_POK_POS[1]) #main pokemon
-    gui.renderPok(OppPok, OPP_PO_POS[0], OPP_PO_POS[1]) #Opponent
-    gui.renderHealthbar(MainPok, MAIN_POK_HPBAR_POS)
-    gui.renderHealthbar(OppPok, OPP_POK_HPBAR_POS)
-    gui.renderContentBox((0,0), (49,5)) #Contentbox
-
-    #Finally updating gui
-    gui.update()
-    print('') #for some odd reason this has to be done to make it work
-
-    #Misc
-    turn = MainPok.speed >= OppPok.speed
-
-    if turn:
-        gui.renderTextContentBox(f'The first turn is for {MainPok.name}')
-    else:
-        gui.renderTextContentBox(f'The first turn is for {OppPok.name}')
-    gui.update()
-    input()
-    #Mainloop
+    #gameloop
     while True:
-        gui.clearContentBox()
+        #Initializing info
+        gui = GUI()
+        
+        #pokemom gets chosen randomly, in the future there will be an menu for that
+        availiblePok = os.listdir(POKEMOM_FOLDER)
+        MainPok = POKEMOM(f"{POKEMOM_FOLDER}/{availiblePok[random.randint(0, len(availiblePok)-1)]}") #random file from the availible folder
+        OppPok = POKEMOM(f"{POKEMOM_FOLDER}/{availiblePok[random.randint(0, len(availiblePok)-1)]}")
+        MainPok.HEALTHBAR = HEALTHBAR(MainPok.HP)
+        OppPok.HEALTHBAR = HEALTHBAR(OppPok.HP)
 
-        #Checks if hp of one of the
-        if MainPok.HEALTHBAR.hpLeft == 0:
-            gui.renderPok(placeholder(), MAIN_POK_POS[0], MAIN_POK_POS[1])
-            gui.renderTextContentBox(f'{MainPok.name} fainted, {OppPok.name} won!')
-            gui.update()
-            input()
-            break
-        elif OppPok.HEALTHBAR.hpLeft == 0:
-            gui.renderPok(placeholder(), OPP_PO_POS[0], OPP_PO_POS[1])
-            gui.renderTextContentBox(f'{OppPok.name} fainted, {MainPok.name} won!')
-            gui.update()
-            input()
-            break
+        #Rendering
+        gui.renderPok(MainPok, MAIN_POK_POS[0], MAIN_POK_POS[1]) #main pokemon
+        gui.renderPok(OppPok, OPP_PO_POS[0], OPP_PO_POS[1]) #Opponent
+        gui.renderHealthbar(MainPok, MAIN_POK_HPBAR_POS)
+        gui.renderHealthbar(OppPok, OPP_POK_HPBAR_POS)
+        gui.renderContentBox((0,0), (49,5)) #Contentbox
+
+        #Finally updating gui
+        gui.update()
+        print('') #for some odd reason this has to be done to make it work
+
+        #Misc
+        turn = MainPok.speed >= OppPok.speed
+        gui.renderTextContentBox(f'A wild {OppPok.name} has appeared!')
+        gui.update()
+        input()
         if turn:
-            #battleoptionloop
-            while True:
-                gui.clearContentBox()
-                battleOption = gui.BattleChoiceMenu(("Attack", 'Run') ,'What will you do?')
-                gui.clearContentBox()
-                if battleOption == 0:
-                    attackMenu = gui.AttackChoiceMenu(MainPok)
-                    gui.clearContentBox()
-                    gui.update()
-                    if attackMenu == 'Back':
-                        pass #back
-                    else:
-                        #attack, pehaps make function?
-                        Damage(MainPok, OppPok, attackMenu, gui)
-
-                        input()
-
-                        break
-                else: #run
-                    gui.clearContentBox()
-                    gui.renderTextContentBox('You couldn\'t get away.')
-                    gui.update()
-                    input()
-                    break
-                gui.clearContentBox()
-            turn = False
+            gui.renderTextContentBox(f'The first turn is for {MainPok.name}')
         else:
-            autoDamage(OppPok, MainPok, gui)
-            turn= True
-        #input()
+            gui.renderTextContentBox(f'The first turn is for {OppPok.name}')
+        gui.update()
+        input()
+        #Mainloop
+        while True:
+            gui.clearContentBox()
+
+            #Checks if hp of one of the
+            if MainPok.HEALTHBAR.hpLeft == 0:
+                gui.renderPok(placeholder(), MAIN_POK_POS[0], MAIN_POK_POS[1])
+                gui.renderTextContentBox(f'{MainPok.name} fainted, {OppPok.name} won!')
+                gui.update()
+                input()
+                break
+            elif OppPok.HEALTHBAR.hpLeft == 0:
+                gui.renderPok(placeholder(), OPP_PO_POS[0], OPP_PO_POS[1])
+                gui.renderTextContentBox(f'{OppPok.name} fainted, {MainPok.name} won!')
+                gui.update()
+                input()
+                break
+            if turn:
+                #battleoptionloop
+                while True:
+                    gui.clearContentBox()
+                    battleOption = gui.BattleChoiceMenu(("Attack", 'Run') ,'What will you do?')
+                    gui.clearContentBox()
+                    if battleOption == 0:
+                        attackMenu = gui.AttackChoiceMenu(MainPok)
+                        gui.clearContentBox()
+                        gui.update()
+                        if attackMenu == 'Back':
+                            pass #back
+                        else:
+                            #attack, pehaps make function?
+                            Damage(MainPok, OppPok, attackMenu, gui)
+
+                            input()
+
+                            break
+                    else: #run
+                        gui.clearContentBox()
+                        gui.renderTextContentBox('You couldn\'t get away.')
+                        gui.update()
+                        input()
+                        break
+                    gui.clearContentBox()
+                turn = False
+            else:
+                autoDamage(OppPok, MainPok, gui)
+                turn= True
+            #input()
+        gui.clearContentBox()
+        choice = gui.BattleChoiceMenu(("Yes", 'No'), 'Do you want to play again?')
+        if choice != 0:
+            break
