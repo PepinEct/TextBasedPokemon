@@ -46,12 +46,28 @@ DOWN_KEY = 's'
 SOUNDS_FOLDER = 'Sounds'
 POKEMOM_FOLDER = 'Pokemom'
 os.system('MODE 10000,10000')
-MAIN_POK_POS = ((6, 8), (16, 19))
+MAIN_POK_POS = ((6, 9), (16, 20))
 MAIN_POK_HPBAR_POS = (MAIN_POK_POS[0][0]+3, MAIN_POK_POS[0][1]-1)
 OPP_PO_POS = ((35, 20), (40, 27))
 OPP_POK_HPBAR_POS = (OPP_PO_POS[0][0]-1, OPP_PO_POS[0][1]-4)
 FILLER_ICON = '~'
 
+SETTING_FILENAME = 'PokeSettings.json'
+SETTING = {"Choose pokemom": True, "Amount Chosen pokemom": 4}
+
+#loads settings from file
+try:
+    with open(SETTING_FILENAME, 'r') as file:
+        SETTING = json.load(file)
+
+    
+except(FileNotFoundError):
+    with open(SETTING_FILENAME, 'w') as file:
+        json.dump(SETTING, file, indent=4)
+
+#Settings that get loaded
+CHOOSE_POK = SETTING['Choose pokemom']
+AMOUNT_RANDOM_POK = SETTING['Amount Chosen pokemom']
 
 #Copied from my 'grids' libary
 class Grid:
@@ -273,8 +289,8 @@ class GUI:
         if self.AUTOUPDATE:
             self.update
 
-    def AttackChoiceMenu(self, pok: POKEMOM, margin=4):
-        self.renderLineContentBox('What will you do?', 0)
+    def AttackChoiceMenu(self, pok: POKEMOM, margin=4, AddBack=True, skipMoveset = False, msg='What will you do?'):
+        self.renderLineContentBox(msg, 0)
         
         _start = self.ContentBoxDims[0]
         _end = self.ContentBoxDims[1]
@@ -283,7 +299,8 @@ class GUI:
         moves = []
         for move in pok.moveset:
             moves.append(move)
-        moves.append('Back')
+        if AddBack:
+            moves.append('Back')
         pos = 0
         linepos = 1
         
@@ -306,7 +323,8 @@ class GUI:
             if not isEven(pos):
                 templine+=f'{FILLER_ICON*margin}{pos+1} {move}'
             else:
-                templine+=f'{FILLER_ICON*margin}{pos+1} {move}{xtraSpace*FILLER_ICON}'
+                #templine+=f'{FILLER_ICON*margin}{pos+1} {move}{xtraSpace*FILLER_ICON}' <- temp
+                templine+=f'{FILLER_ICON*margin}{pos+1} {move}'
             pos+=1
         if templine!='':
             lines.append(templine)
@@ -464,7 +482,22 @@ def Damage(host: POKEMOM, target:POKEMOM, move:dict, gui:GUI):
 
     pressEnter()
 
-    
+
+def randomPok(amount: int) -> list:
+    class holder:
+        def __init__(self, filename, name) -> None:
+            self.filename = filename
+            self.name = name
+    poks = {}
+    total = []
+    for pok in os.listdir(POKEMOM_FOLDER):
+        total.append(POKEMOM(f'{POKEMOM_FOLDER}/{pok}'))
+    for x in range(amount):
+        pos = random.randint(0, len(total)-(1+x))
+        poks[total[pos].name] = total[pos]
+        total.pop(pos)
+
+    return poks
 
 
 def makeTemplate(name, LVL=1, template='',HP=15, ATT=5, SP_ATT=5, DEF=5, SP_DEF=5, SPEED=5):
@@ -488,12 +521,31 @@ if __name__ == '__main__': #for testing
         MainPok.HEALTHBAR = HEALTHBAR(MainPok.HP)
         OppPok.HEALTHBAR = HEALTHBAR(OppPok.HP)
 
-        #Rendering
+        #rendering contentbox
+        gui.renderContentBox((0,0), (49,5)) #Contentbox
+
+        #chosing poks
+        if CHOOSE_POK:
+            randomPoks = randomPok(4)
+            msg = 'Choose one:'
+            msg+=FILLER_ICON*(46-len(msg))
+            temp = placeholder()
+            temp.moveset = randomPoks
+            choice = gui.AttackChoiceMenu(temp, AddBack=False, msg=msg)
+            MainPok = randomPoks[choice]
+            MainPok.HEALTHBAR = HEALTHBAR(MainPok.HP)
+
+        
+
+        #rendering poks
         gui.renderPok(MainPok, MAIN_POK_POS[0], MAIN_POK_POS[1]) #main pokemon
         gui.renderPok(OppPok, OPP_PO_POS[0], OPP_PO_POS[1]) #Opponent
+
+        #Rendering
         gui.renderHealthbar(MainPok, MAIN_POK_HPBAR_POS)
         gui.renderHealthbar(OppPok, OPP_POK_HPBAR_POS)
-        gui.renderContentBox((0,0), (49,5)) #Contentbox
+
+
 
         #Finally updating gui
         gui.update()
@@ -501,8 +553,10 @@ if __name__ == '__main__': #for testing
 
         #Misc
         turn = MainPok.speed >= OppPok.speed
+        
         gui.renderTextContentBox(f'A wild {OppPok.name} has appeared!')
         gui.update()
+        input()
         input()
         if turn:
             gui.renderTextContentBox(f'The first turn is for {MainPok.name}')
