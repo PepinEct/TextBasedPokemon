@@ -344,7 +344,7 @@ class GUI:
                     #SOUNDS.play(SOUNDS.select)
                     return moves[choice-1]
                 if pressed:
-                    SOUNDS.play(SOUNDS.select)
+                    #SOUNDS.play(SOUNDS.select)
                     CHOICEUPDATE(choice)
                     self.update()
                     time.sleep(0.1)
@@ -396,7 +396,7 @@ class GUI:
                     self.renderTextContentBox(template.replace(f'{choice+1}', '>'))
                     self.update()
                     pressed = False
-                    SOUNDS.play(SOUNDS.select)
+                    #SOUNDS.play(SOUNDS.select)
                     time.sleep(0.1)
 
         
