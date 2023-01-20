@@ -1,0 +1,30 @@
+{
+    "name": "Basic Guy",
+    "template": "o   o\n   )\n\n `--",
+    "moveset": {
+        "Wear hoodie": {
+            "slogan": "%name% put on a hoodie, its so basic that %target% just gets distracted!",
+            "DMG": 3
+        },
+        "Eat bread": {
+            "slogan": "%name% ate bread, its very basic",
+            "DMG": 2
+        },
+        "Go to office job": {
+            "slogan": "%name% went to his basic office job, why would u do that to yourself!?",
+            "DMG": 3
+        },
+        "Sleep": {
+            "slogan": "%name% went to sleep, %target% finds it so pathetic that it hurts itself!",
+            "DMG": 25
+        }
+    },
+    "HP": 30,
+    "LVL": 1,
+    "items": [],
+    "ATT": 5,
+    "SP_ATT": 5,
+    "DEF": 5,
+    "SP_DEF": 5,
+    "SPEED": 3
+}
