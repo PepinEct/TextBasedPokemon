@@ -3,32 +3,37 @@
     "template": ". .\n _",
     "moveset": {
         "Testing": {
-            "slogan": "%name% is testing you",
+            "slogan": "%name% is testing %target%",
             "SP_DMG": 1,
-            "DMG": 3
+            "DMG": 5,
+            "MAX_USE": 5
+
         },
         "Inspecting": {
-            "slogan": "%name%: hmmm yea this is it",
+            "slogan": "%name% inspected %target% and found a pickle between its ear!",
             "SP_DMG": 1,
-            "DMG": 5
+            "DMG": 4,
+            "MAX_USE": 10
         },
         "Slap": {
-            "slogan": "%name% slapped %target% for sucking at everything",
+            "slogan": "%name% slapped %target% for sucking at minor tasks!",
             "SP_DMG": 1,
-            "DMG": 4
+            "DMG": 4,
+            "MAX_USE": 10
         },
         "Fail": {
-            "slogan": "%name% failed.",
+            "slogan": "%name% failed. %target% felt sorry",
             "SP_DMG": 1,
-            "DMG": 0
+            "DMG": 0,
+            "MAX_USE": 10
         }
     },
-    "HP": 20,
+    "HP": 22,
     "LVL": 1,
     "items": [],
-    "ATT": 5,
+    "ATT": 14,
     "SP_ATT": 5,
-    "DEF": 5,
+    "DEF": 8,
     "SP_DEF": 5,
     "SPEED": 6
 }

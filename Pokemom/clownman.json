@@ -5,30 +5,34 @@
         "Be goofy": {
             "slogan": "%target% got confused and it caused permanent brain damage.",
             "SP_DMG": 1,
-            "DMG": 5
+            "DMG": 5,
+            "MAX_USE": 5
         },
         "Clown dance": {
             "slogan": "With the sexy dancemoves of %name% %target% just wants to cry.",
             "SP_DMG": 1,
-            "DMG": 3
+            "DMG": 5,
+            "MAX_USE": 8
         },
         "Nothing": {
-            "slogan": "Nope i didnt lie this does absolutly nothing.",
+            "slogan": "%name% did nothing, %target% is okay with it tho",
             "SP_DMG": 1,
-            "DMG": 0
+            "DMG": 0,
+            "MAX_USE": 5
         },
         "Laugh": {
             "slogan": "%name% laughed at %target% and started to cry!",
             "SP_DMG": 1,
-            "DMG": 2
+            "DMG": 6,
+            "MAX_USE": 10
         }
     },
-    "HP": 16,
+    "HP": 27,
     "LVL": 1,
     "items": [],
     "ATT": 5,
     "SP_ATT": 5,
-    "DEF": 5,
+    "DEF": 4,
     "SP_DEF": 5,
     "SPEED": 4
 }

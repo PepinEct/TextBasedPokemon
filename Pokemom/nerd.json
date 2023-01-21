@@ -5,30 +5,38 @@
         "Nerd": {
             "slogan": "%name% started talking about nerdstuff, %target% fell asleep!",
             "SP_DMG": 1,
-            "DMG": 10
+            "DMG": 10,
+            "MAX_USE": 5,
+            "Used": 2
         },
         "Wear glasses": {
             "slogan": "%name% putted on glasses, but %target% figured it out!",
             "SP_DMG": 1,
-            "DMG": 0
+            "DMG": 4,
+            "MAX_USE": 5,
+            "Used": 5
         },
         "Go to class": {
-            "slogan": "%name% sorry be right back, gotta go!",
+            "slogan": "%name% left to class, he seems kinda nerdy",
             "SP_DMG": 1,
-            "DMG": 0
+            "DMG": 3,
+            "MAX_USE": 5,
+            "Used": 1
         },
         "Study": {
-            "slogan": "%name% is studying.",
+            "slogan": "%name% went studying, it gave him headache.",
             "SP_DMG": 1,
-            "DMG": 6
+            "DMG": 6,
+            "MAX_USE": 5,
+            "Used": 3
         }
     },
-    "HP": 10,
+    "HP": 20,
     "LVL": 1,
     "items": [],
-    "ATT": 5,
+    "ATT": 0,
     "SP_ATT": 5,
-    "DEF": 5,
+    "DEF": 2,
     "SP_DEF": 5,
     "SPEED": 5
 }

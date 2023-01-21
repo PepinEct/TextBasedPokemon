@@ -5,30 +5,34 @@
         "HBD": {
             "slogan": "%name% sang happy birthday. To himself. How pathetic. %target% feels sorry",
             "SP_DMG": 1,
-            "DMG": 6
+            "DMG": 3,
+            "MAX_USE": 5
         },
         "Cry": {
             "slogan": "%name% started to cry. ON HIS OWN BIRTHDAY",
             "SP_DMG": 1,
-            "DMG": 3
+            "DMG": 4,
+            "MAX_USE": 5
         },
         "Open presents": {
             "slogan": "%name% opened a present. It's a piece of cheese",
             "SP_DMG": 1,
-            "DMG": 2
+            "DMG": 7,
+            "MAX_USE": 3
         },
-        "Birthday dance": {
+        "Bday dance": {
             "slogan": "%name% did the birthdaydance. The moves of this guy impresses %target% very much",
             "SP_DMG": 1,
-            "DMG": 12
+            "DMG": 12,
+            "MAX_USE": 3
         }
     },
-    "HP": 21,
+    "HP": 28,
     "LVL": 1,
     "items": [],
-    "ATT": 5,
+    "ATT": 15,
     "SP_ATT": 5,
-    "DEF": 5,
+    "DEF": 4,
     "SP_DEF": 5,
     "SPEED": 7
 }

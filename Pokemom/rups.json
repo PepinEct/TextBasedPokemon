@@ -5,30 +5,38 @@
         "Wiggle": {
             "slogan": "%name% wiggled! %target% joined for fun!",
             "SP_DMG": 1,
-            "DMG": 3
+            "DMG": 4,
+            "MAX_USE": 5,
+            "Used": 5
         },
         "Make noice": {
-            "slogan": "%name% got noicey, but it wasn't very loud",
+            "slogan": "%name% tried to make noice, but it wasn't very loud",
             "SP_DMG": 1,
-            "DMG": 4
+            "DMG": 4,
+            "MAX_USE": 5,
+            "Used": 8
         },
         "Imitate": {
             "slogan": "%name% imitated %target%, but didn't noticed it. %name% isn't very good at it",
             "SP_DMG": 3,
-            "DMG": 1
+            "DMG": 3,
+            "MAX_USE": 5,
+            "Used": 10
         },
         "Butterfly": {
-            "slogan": "No almost this is a RUPS",
+            "slogan": "%name% tried to change into a butterfly, nothing happend",
             "SP_DMG": 1,
-            "DMG": 0
+            "DMG": 4,
+            "MAX_USE": 5,
+            "Used": 10
         }
     },
     "HP": 14,
     "LVL": 1,
     "items": [],
-    "ATT": 5,
+    "ATT": 12,
     "SP_ATT": 5,
-    "DEF": 5,
+    "DEF": 2,
     "SP_DEF": 5,
     "SPEED": 9
 }

@@ -3,28 +3,32 @@
     "template": "} {\n = \n",
     "moveset": {
         "Eat": {
-            "slogan": "%name% ate sugar, he is now radioactive",
-            "DMG": 6
+            "slogan": "%name% ate a sour lemon, he is now radioactive",
+            "DMG": 6,
+            "MAX_USE": 8
         },
         "Throw up": {
-            "slogan": "%name% threw up, %target% is horrified!",
-            "DMG": 3
+            "slogan": "%name% threw up, %target% is discusted!",
+            "DMG": 4,
+            "MAX_USE": 8
         },
         "Smash": {
             "slogan": "%name% thinks %target% is a smash, %target% is flatterd",
-            "DMG": 0
+            "DMG": 4,
+            "MAX_USE": 10
         },
         "Eat sour pringles": {
-            "slogan": "%name% ate pringles, where does it end?",
-            "DMG": 2
+            "slogan": "%name% ate pringles, it was the green can.",
+            "DMG": 4,
+            "MAX_USE": 5
         }
     },
-    "HP": 15,
+    "HP": 24,
     "LVL": 1,
     "items": [],
     "ATT": 5,
     "SP_ATT": 5,
-    "DEF": 1,
+    "DEF": 5,
     "SP_DEF": 5,
     "SPEED": 6
 }
