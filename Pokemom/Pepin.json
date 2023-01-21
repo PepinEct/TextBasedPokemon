@@ -3,7 +3,7 @@
     "template": "|    |\n|    |\n\n\n\n\\____/",
     "moveset": {
         "Boat": {
-            "slogan": "%name% inimidated %target% opponent with a boat!",
+            "slogan": "%name% inimidated %target% with a boat!",
             "SP_DMG": 1,
             "DMG": 6,
             "MAX_USE": 5,
