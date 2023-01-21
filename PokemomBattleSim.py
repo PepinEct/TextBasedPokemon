@@ -13,10 +13,25 @@ import keyboard
 ==================================
             KNOWN BUGS
 ==================================
--For some reason in autobattle hp spikes to around 70 while hp isnt that much
--Nvm
+-None
 
-
+==================================
+         RECENT CHANGES
+==================================
+-The attack stat can now be used
+-The attacks can be used a limited
+amount.
+-Updated pokemmommaker for the new
+changes.
+-Modified existing pokemom
+==================================
+                TODO
+==================================
+-Add functinality for potions
+-Add mutliple pokemon option #lower priority cuz time
+-2v2 mode
+-level system
+-Add a way to boost stats
 ===================================
                 NOTE
 ===================================
@@ -30,7 +45,7 @@ It does work, kinda unstable but yea
 - ~ is an invisable character that will act as an space
 -Defence is a percentage
 -Not everything in the pokemon.json will function (not implemented)
-
+- %$& are illegal character(s) (for moves)
 
 ===================================
         CURRENTLY WORKING ON
@@ -51,10 +66,14 @@ MAIN_POK_HPBAR_POS = (MAIN_POK_POS[0][0]+3, MAIN_POK_POS[0][1]-1)
 OPP_PO_POS = ((35, 20), (40, 27))
 OPP_POK_HPBAR_POS = (OPP_PO_POS[0][0]-1, OPP_PO_POS[0][1]-4)
 FILLER_ICON = '~'
-
+CHAR_MOVE_BYPASS_CHAR= '%'
 SETTING_FILENAME = 'PokeSettings.json'
 SETTING = {"Choose pokemom": True, "Amount Chosen pokemom": 4}
-
+TENICO = '$'
+FIVICO = '%'
+ONEICO = '&'
+ZEROICO = '^'
+TWOICO = '*'
 #loads settings from file
 try:
     with open(SETTING_FILENAME, 'r') as file:
@@ -124,13 +143,7 @@ class Grid:
 #End libery
 
 
-def debug(msg:str, logfile = 'logs.txt'):
-    with open(logfile, 'a') as file:
-        file.writelines(msg+'\n')
 
-def pressEnter():
-    input()
-    time.sleep(1)
 
 class POKEMOM:
     def __init__(self, TEMPLATEFILE) -> None:
@@ -146,7 +159,33 @@ class POKEMOM:
         self.Turn = False
         self.speed = data['SPEED']
         self.defence = data['DEF']
-    
+        self.attack = data['ATT']
+        
+        #Adds used to moveset
+        for move in self.moveset:
+            self.moveset[move]['Used'] = self.moveset[move]['MAX_USE']
+
+    def setMoveUses(self, move:str, Amount:int=-1):
+        self.moveset[move]['Used'] += Amount
+
+
+#-------------------------------------------Start standalone functions-------------------------------------------
+
+def debug(msg:str, logfile = 'logs.txt', IsList=False):
+    template=''
+    if type(msg) == 'list' or type(msg) == dict or IsList:
+        for x in msg:
+            template+=f'{x} '
+        with open(logfile, 'a') as file:
+            file.writelines(template+'\n')
+    else:
+        with open(logfile, 'a') as file:
+            file.writelines(str(msg)+'\n')
+
+def pressEnter():
+    input()
+    time.sleep(1)
+
 class placeholder:
     #a pokemom placeholder
     def __init__(self) -> None:
@@ -161,6 +200,58 @@ def isEven(num):
     else:
         return True
 
+def makeAmntTemplate(num: int):
+    if num == 0:
+        return ZEROICO
+    ten = int(floor(num/10))
+    num -= ten*10
+    fiv = floor(num / 5)
+    num -= fiv*5
+    two = floor(num / 2)
+    num -= two*2
+    one = int(num / 1)
+    template = f"{ten*TENICO}{FIVICO*fiv}{two*TWOICO}{one*ONEICO}"
+    return template
+    
+
+def TranslateAmntLine(line: str, Bypass='()/'):
+    for char in Bypass:
+        line = line.replace(char, f' {char} ')
+    templates = {}
+    tempAmnt = 0
+    tempTemp= ''
+    for char in line:
+        if char == TENICO:
+            tempAmnt+=10
+            tempTemp+=TENICO
+        elif char == FIVICO:
+            tempAmnt+=5
+            tempTemp+=FIVICO
+        elif char == ONEICO:
+            tempAmnt +=1
+            tempTemp+=ONEICO
+        elif char == ZEROICO:
+            tempTemp+=ZEROICO
+        elif char == TWOICO:
+            tempAmnt+=2
+            tempTemp+=TWOICO
+        else:
+            if tempTemp!='':
+                templates[tempTemp] = tempAmnt
+                tempTemp=''
+                tempAmnt=0
+    keys = []
+    for y in templates:
+        keys.append(y)
+    keys.reverse()
+    for x in range(len(keys)):
+        line = line.replace(keys[x], str(templates[keys[x]]))
+    for char in Bypass:
+        line = line.replace(f' {char} ', char)
+    return line
+
+
+#-------------------------------------------End standalone functions-------------------------------------------
 
 class HEALTHBAR:
     def __init__(self, MAX_HP=15, HPBAR_MAXLEN = 5, padding=3) -> None:
@@ -289,7 +380,7 @@ class GUI:
         if self.AUTOUPDATE:
             self.update
 
-    def AttackChoiceMenu(self, pok: POKEMOM, margin=4, AddBack=True, skipMoveset = False, msg='What will you do?'):
+    def AttackChoiceMenu(self, pok: POKEMOM, margin=4, AddBack=True, skipMoveset = False, msg='What will you do?', ShowUses=True):
         self.renderLineContentBox(msg, 0)
         
         _start = self.ContentBoxDims[0]
@@ -310,8 +401,6 @@ class GUI:
         for x in range(floor(len(moves)/2)):
             size.append(moves[(x+1)*2-2])
         size.sort()
-        xtraSpace=len(size[1])-len(size[0])
-        smallest = size[0]
         templine = ''
         lines = []
         for move in moves:
@@ -319,12 +408,13 @@ class GUI:
                 lines.append(templine)
                 templine=''
                 linepos+=1
-
-            if not isEven(pos):
+            if not ShowUses:
                 templine+=f'{FILLER_ICON*margin}{pos+1} {move}'
             else:
-                #templine+=f'{FILLER_ICON*margin}{pos+1} {move}{xtraSpace*FILLER_ICON}' <- temp
-                templine+=f'{FILLER_ICON*margin}{pos+1} {move}'
+                try:
+                    templine+=f'{FILLER_ICON*margin}{pos+1} {move}({makeAmntTemplate(pok.moveset[move]["Used"])}/{makeAmntTemplate(pok.moveset[move]["MAX_USE"])})'
+                except(KeyError): pass #Its prob 'back' or any other move that isnt part of the moveset (for setting etc)
+
             pos+=1
         if templine!='':
             lines.append(templine)
@@ -332,8 +422,11 @@ class GUI:
         #function that 'updates' the choice gui ig
         def CHOICEUPDATE(choice):
             pos = 1
+            gui.clearContentBox()
             for line in lines:
-                self.renderLineContentBox(line.replace(str(choice), '>'), pos)
+                line = line.replace(str(choice), '>')
+                line = TranslateAmntLine(line)
+                self.renderLineContentBox(line, pos)
                 pos+=1
         CHOICEUPDATE(choice)
         self.update()
@@ -360,7 +453,12 @@ class GUI:
                 elif keyboard.is_pressed('\n'):
                     time.sleep(0.1)
                     #SOUNDS.play(SOUNDS.select)
-                    return moves[choice-1]
+                    try:
+                        if not pok.moveset[(moves[choice-1])]['Used'] <= 0:
+                            pok.moveset[(moves[choice-1])]['Used']-=1
+                            return moves[choice-1]
+                    except(TypeError): #prob not a pokemom
+                        return moves[choice-1]
                 if pressed:
                     #SOUNDS.play(SOUNDS.select)
                     CHOICEUPDATE(choice)
@@ -458,6 +556,7 @@ def autoDamage(host: POKEMOM, target:POKEMOM, gui:GUI) -> int:
         temp.append(move)
     using = host.moveset[temp[random.randint(0, len(temp)-1)]]
     damage = round(using['DMG']/100*(100-target.defence))
+    damage = round(damage/100*(100-host.attack))
     target.HEALTHBAR.hit(damage)
     gui.renderHealthbar(target, MAIN_POK_HPBAR_POS) #Only hardcoded part
     slogan = using['slogan'].replace('%name%', host.name).replace('%target%', target.name).split(';')
@@ -470,6 +569,7 @@ def Damage(host: POKEMOM, target:POKEMOM, move:dict, gui:GUI):
     move = host.moveset[move]
 
     damage = round(move['DMG']/100*(100-target.defence))
+    damage = round(damage/100*(100-host.attack))
     slogan = move['slogan'].replace('%name%', host.name).replace('%target%', target.name).split(';')
     target.HEALTHBAR.hit(damage)
     gui.renderHealthbar(target, OPP_POK_HPBAR_POS) #Only hardcoded part, perhaps store pos in pok obj?
@@ -503,7 +603,8 @@ def randomPok(amount: int) -> list:
 def makeTemplate(name, LVL=1, template='',HP=15, ATT=5, SP_ATT=5, DEF=5, SP_DEF=5, SPEED=5):
     moveSets = {}
     for x in range(4):
-        moveSets[f'move{x+1}'] = {"slogan":'', 'SP_DMG':1, 'DMG':1}
+        maxUses = 5 #temp
+        moveSets[f'move{x+1}'] = {"slogan":'', 'SP_DMG':1, 'DMG':1, 'MAX_USE':maxUses, "Used":maxUses}
     template = {'name':name,'template':'', 'moveset':moveSets,'HP':HP, 'LVL':LVL, 'items':[],'ATT':ATT, 'SP_ATT':SP_ATT, 'DEF':DEF, 'SP_DEF':SP_DEF, 'SPEED':SPEED}
     with open(f'{name}.json', 'w') as file:
         json.dump(template, file, indent=4)
@@ -524,17 +625,16 @@ if __name__ == '__main__': #for testing
         #rendering contentbox
         gui.renderContentBox((0,0), (49,5)) #Contentbox
 
-        #chosing poks
+        #chosing poks manual
         if CHOOSE_POK:
             randomPoks = randomPok(4)
             msg = 'Choose one:'
             msg+=FILLER_ICON*(46-len(msg))
             temp = placeholder()
             temp.moveset = randomPoks
-            choice = gui.AttackChoiceMenu(temp, AddBack=False, msg=msg)
+            choice = gui.AttackChoiceMenu(temp, AddBack=False, msg=msg, ShowUses=False)
             MainPok = randomPoks[choice]
             MainPok.HEALTHBAR = HEALTHBAR(MainPok.HP)
-
         
 
         #rendering poks
