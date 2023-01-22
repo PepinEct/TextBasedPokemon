@@ -4,39 +4,39 @@
     "moveset": {
         "Boat": {
             "slogan": "%name% inimidated %target% with a boat!",
-            "SP_DMG": 1,
             "DMG": 6,
             "MAX_USE": 5,
-            "Used": 5
+            "Used": 5,
+            "isSP": true
         },
         "Speak": {
             "slogan": "%name% chose to speak pure facts, %target% relates",
-            "SP_DMG": 1,
             "DMG": 5,
             "MAX_USE": 5,
-            "Used": 5
+            "Used": 5,
+            "isSP": false
         },
         "Confuse": {
             "slogan": "%name% started talking! %target% couldn't follow it and got confused!",
-            "SP_DMG": 1,
             "DMG": 6,
             "MAX_USE": 5,
-            "Used": 3
+            "Used": 3,
+            "isSP": false
         },
         "Roast": {
             "slogan": "%name% roasted %target%, %target% is now ashamed!",
-            "SP_DMG": 1,
             "DMG": 4,
             "MAX_USE": 5,
-            "Used": 5
+            "Used": 5,
+            "isSP": false
         }
     },
-    "HP": 28,
+    "HP": 33,
     "LVL": 1,
     "items": [],
     "ATT": 16,
-    "SP_ATT": 5,
-    "DEF": 8,
-    "SP_DEF": 5,
+    "SP_ATT": 20,
+    "DEF": 12,
+    "SP_DEF": 20,
     "SPEED": 5
 }

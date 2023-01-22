@@ -4,35 +4,35 @@
     "moveset": {
         "Be goofy": {
             "slogan": "%target% got confused and it caused permanent brain damage.",
-            "SP_DMG": 1,
             "DMG": 5,
-            "MAX_USE": 5
+            "MAX_USE": 5,
+            "isSP": true
         },
         "Clown dance": {
             "slogan": "With the sexy dancemoves of %name% %target% just wants to cry.",
-            "SP_DMG": 1,
             "DMG": 5,
-            "MAX_USE": 8
+            "MAX_USE": 8,
+            "isSP": false
         },
         "Nothing": {
             "slogan": "%name% did nothing, %target% is okay with it tho",
-            "SP_DMG": 1,
-            "DMG": 0,
-            "MAX_USE": 5
+            "DMG": 5,
+            "MAX_USE": 5,
+            "isSP": false
         },
         "Laugh": {
             "slogan": "%name% laughed at %target% and started to cry!",
-            "SP_DMG": 1,
             "DMG": 6,
-            "MAX_USE": 10
+            "MAX_USE": 10,
+            "isSP": true
         }
     },
-    "HP": 27,
+    "HP": 32,
     "LVL": 1,
     "items": [],
-    "ATT": 5,
-    "SP_ATT": 5,
-    "DEF": 4,
-    "SP_DEF": 5,
+    "ATT": 1,
+    "SP_ATT": 25,
+    "DEF": 10,
+    "SP_DEF": 40,
     "SPEED": 4
 }

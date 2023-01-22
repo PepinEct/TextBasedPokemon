@@ -6,34 +6,38 @@
             "slogan": "%name% is testing %target%",
             "SP_DMG": 1,
             "DMG": 5,
-            "MAX_USE": 5
+            "MAX_USE": 5,
+            "isSP": false
 
         },
         "Inspecting": {
             "slogan": "%name% inspected %target% and found a pickle between its ear!",
             "SP_DMG": 1,
             "DMG": 4,
-            "MAX_USE": 10
+            "MAX_USE": 10,
+            "isSP": true
         },
         "Slap": {
             "slogan": "%name% slapped %target% for sucking at minor tasks!",
             "SP_DMG": 1,
             "DMG": 4,
-            "MAX_USE": 10
+            "MAX_USE": 10,
+            "isSP": false
         },
         "Fail": {
             "slogan": "%name% failed. %target% felt sorry",
             "SP_DMG": 1,
             "DMG": 0,
-            "MAX_USE": 10
+            "MAX_USE": 10,
+            "isSP": false
         }
     },
-    "HP": 22,
+    "HP": 27,
     "LVL": 1,
     "items": [],
-    "ATT": 14,
-    "SP_ATT": 5,
-    "DEF": 8,
-    "SP_DEF": 5,
+    "ATT": 15,
+    "SP_ATT": 20,
+    "DEF": 15,
+    "SP_DEF": 15,
     "SPEED": 6
 }

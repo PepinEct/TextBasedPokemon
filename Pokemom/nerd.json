@@ -4,39 +4,39 @@
     "moveset": {
         "Nerd": {
             "slogan": "%name% started talking about nerdstuff, %target% fell asleep!",
-            "SP_DMG": 1,
             "DMG": 10,
             "MAX_USE": 5,
-            "Used": 2
+            "Used": 2,
+            "isSP": false
         },
         "Wear glasses": {
             "slogan": "%name% putted on glasses, but %target% figured it out!",
-            "SP_DMG": 1,
             "DMG": 4,
             "MAX_USE": 5,
-            "Used": 5
+            "Used": 5,
+            "isSP": true
         },
         "Go to class": {
             "slogan": "%name% left to class, he seems kinda nerdy",
-            "SP_DMG": 1,
             "DMG": 3,
             "MAX_USE": 5,
-            "Used": 1
+            "Used": 1,
+            "isSP": false
         },
         "Study": {
             "slogan": "%name% went studying, it gave him headache.",
-            "SP_DMG": 1,
             "DMG": 6,
             "MAX_USE": 5,
-            "Used": 3
+            "Used": 3,
+            "isSP": false
         }
     },
-    "HP": 20,
+    "HP": 25,
     "LVL": 1,
     "items": [],
     "ATT": 0,
     "SP_ATT": 5,
     "DEF": 2,
-    "SP_DEF": 5,
+    "SP_DEF": 35,
     "SPEED": 5
 }

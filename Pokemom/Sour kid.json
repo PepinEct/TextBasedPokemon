@@ -5,30 +5,34 @@
         "Eat": {
             "slogan": "%name% ate a sour lemon, he is now radioactive",
             "DMG": 6,
-            "MAX_USE": 8
+            "MAX_USE": 8,
+            "isSP": true
         },
         "Throw up": {
             "slogan": "%name% threw up, %target% is discusted!",
             "DMG": 4,
-            "MAX_USE": 8
+            "MAX_USE": 8,
+            "isSP": true
         },
         "Smash": {
             "slogan": "%name% thinks %target% is a smash, %target% is flatterd",
             "DMG": 4,
-            "MAX_USE": 10
+            "MAX_USE": 10,
+            "isSP": false
         },
         "Eat sour pringles": {
             "slogan": "%name% ate pringles, it was the green can.",
             "DMG": 4,
-            "MAX_USE": 5
+            "MAX_USE": 5,
+            "isSP": false
         }
     },
-    "HP": 24,
+    "HP": 29,
     "LVL": 1,
     "items": [],
-    "ATT": 5,
-    "SP_ATT": 5,
-    "DEF": 5,
-    "SP_DEF": 5,
+    "ATT": 15,
+    "SP_ATT": 10,
+    "DEF": 2,
+    "SP_DEF": 50,
     "SPEED": 6
 }

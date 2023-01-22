@@ -5,31 +5,35 @@
         "Wear hoodie": {
             "slogan": "%name% put on a hoodie, its so basic that %target% just gets distracted!",
             "DMG": 4,
-            "MAX_USE": 4
+            "MAX_USE": 4,
+            "isSP": false
         },
         "Eat bread": {
             "slogan": "%name% ate bread, its very basic",
             "DMG": 3,
-            "MAX_USE": 10
+            "MAX_USE": 10,
+            "isSP": false
         },
         "Go to office job": {
             "slogan": "%name% went to his basic office job, why would u do that to yourself!?",
             "DMG": 5,
-            "MAX_USE": 4
+            "MAX_USE": 4,
+            "isSP": false
 
         },
         "Sleep": {
             "slogan": "%name% went to sleep, %target% finds it so pathetic that it hurts itself!",
             "DMG": 25,
-            "MAX_USE": 1
+            "MAX_USE": 1,
+            "isSP": false
         }
     },
-    "HP": 27,
+    "HP": 32,
     "LVL": 1,
     "items": [],
-    "ATT": 8,
+    "ATT": 15,
     "SP_ATT": 5,
-    "DEF": 5,
-    "SP_DEF": 5,
+    "DEF": 20,
+    "SP_DEF": 0,
     "SPEED": 4
 }

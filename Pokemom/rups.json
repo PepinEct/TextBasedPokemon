@@ -4,39 +4,39 @@
     "moveset": {
         "Wiggle": {
             "slogan": "%name% wiggled! %target% joined for fun!",
-            "SP_DMG": 1,
             "DMG": 4,
             "MAX_USE": 5,
-            "Used": 5
+            "Used": 5,
+            "isSP": true
         },
         "Make noice": {
             "slogan": "%name% tried to make noice, but it wasn't very loud",
-            "SP_DMG": 1,
             "DMG": 4,
             "MAX_USE": 5,
-            "Used": 8
+            "Used": 8,
+            "isSP": true
         },
         "Imitate": {
             "slogan": "%name% imitated %target%, but didn't noticed it. %name% isn't very good at it",
-            "SP_DMG": 3,
             "DMG": 3,
             "MAX_USE": 5,
-            "Used": 10
+            "Used": 10,
+            "isSP": false
         },
         "Butterfly": {
             "slogan": "%name% tried to change into a butterfly, nothing happend",
-            "SP_DMG": 1,
             "DMG": 4,
             "MAX_USE": 5,
-            "Used": 10
+            "Used": 10,
+            "isSP": true
         }
     },
-    "HP": 14,
+    "HP": 19,
     "LVL": 1,
     "items": [],
     "ATT": 12,
-    "SP_ATT": 5,
-    "DEF": 2,
-    "SP_DEF": 5,
+    "SP_ATT": 15,
+    "DEF": 5,
+    "SP_DEF": 10,
     "SPEED": 9
 }
