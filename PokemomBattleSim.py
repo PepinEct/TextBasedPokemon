@@ -13,12 +13,10 @@ import keyboard
 ==================================
             KNOWN BUGS
 ==================================
-------------WORKING-ON------------
--None
---------------FIXED---------------
+--------------FIXED--------------
 -The recalculation/translation
 doens't function quite right
-example: sour kid, use any move
+example: sourkid, use any move
 
 ==================================
          RECENT CHANGES
@@ -228,39 +226,56 @@ def makeAmntTemplate(num: int):
     return template
     
 
-def TranslateAmntLine(line: str, Bypass='()/'):
-    index = 9999 #to make sure it doesn't interfere with the options
-    for char in Bypass:
-        line = line.replace(char, f' {char} ')
-    templates = {}
-    tempAmnt = 0
-    tempTemp= ''
+def TranslateAmntLine(line:str): #new translator
+    pulled = []
     for char in line:
+        pulled.append(char)
+    locs = []
+    pos = 0
+    index = 9999
+    tempAmnt = 0
+    templates = {}
+    tempTemp = ''
+    for char in pulled:
         if char == TENICO:
             tempAmnt+=10
             tempTemp+=TENICO
+            locs.append(pos)
         elif char == FIVICO:
             tempAmnt+=5
             tempTemp+=FIVICO
-        elif char == ONEICO:
-            tempAmnt +=1
-            tempTemp+=ONEICO
+            locs.append(pos)
         elif char == ZEROICO:
             tempTemp+=ZEROICO
+            locs.append(pos)
         elif char == TWOICO:
             tempAmnt+=2
             tempTemp+=TWOICO
+            locs.append(pos)
+        elif char == ONEICO:
+            tempAmnt +=1
+            tempTemp+=ONEICO
+            locs.append(pos)
         else:
             if tempTemp!='':
+                first = False
+                for x in locs:
+                    if not first:
+                        pulled[x] = str(index)
+                        first = True
+                    else:
+                        pulled[x] = ''
                 templates[str(index)] = tempAmnt
-                line = line.replace(tempTemp, str(index))
-                index +=1
-                tempTemp=''
-                tempAmnt=0
-    for num in templates:
-        line = line.replace(num, str(templates[num]))
-    for char in Bypass:
-        line = line.replace(f' {char} ', char)
+                index+=1
+                locs = []
+                tempTemp =''
+                tempAmnt = 0
+        pos+=1
+    line = ''
+    for char in pulled:
+        line+=char
+    for index in templates:
+        line = line.replace(index, str(templates[str(index)]))
     return line
 
 
