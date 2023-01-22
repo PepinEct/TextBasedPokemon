@@ -14,6 +14,8 @@ import keyboard
             KNOWN BUGS
 ==================================
 --------------FIXED--------------
+-The back button didn't appear and
+if pressed it caused a crash
 -The recalculation/translation
 doens't function quite right
 example: sourkid, use any move
@@ -63,7 +65,7 @@ RIGHT_KEY = 'd'
 UP_KEY = 'w'
 DOWN_KEY = 's'
 SOUNDS_FOLDER = 'Sounds'
-ENABLE_DEBUG = False #Enable for debugging
+ENABLE_DEBUG = True #Enable for debugging
 POKEMOM_FOLDER = 'Pokemom'
 os.system('MODE 10000,10000')
 os.system('title Pokemom!')
@@ -437,7 +439,7 @@ class GUI:
                 try:
                     if pok.moveset[move]['isSP']:
                         xtra_str+='!'
-                except(KeyError): pass #its the 'back' option wich is added to the 'moves'
+                except(KeyError) as e: debug(e) #its the 'back' option wich is added to the 'moves'
             if isEven(pos):
                 lines.append(templine)
                 templine=''
@@ -447,7 +449,7 @@ class GUI:
             else:
                 try:
                     templine+=f'{FILLER_ICON*margin}{pos+1} {xtra_str}{move}({makeAmntTemplate(pok.moveset[move]["Used"])}/{makeAmntTemplate(pok.moveset[move]["MAX_USE"])})'
-                except(KeyError): pass #Its prob 'back' or any other move that isnt part of the moveset (for setting etc)
+                except(KeyError) as e: templine+=f'{FILLER_ICON*margin}{pos+1} {xtra_str}{move}' #Its prob 'back' or any other move that isnt part of the moveset (for setting etc)
 
             pos+=1
         if templine!='':
@@ -457,6 +459,7 @@ class GUI:
         def CHOICEUPDATE(choice):
             pos = 1
             gui.clearContentBox()
+            self.renderLineContentBox(msg, 0)
             for line in lines:
                 line = line.replace(str(choice), '>')
                 line = TranslateAmntLine(line)
@@ -492,6 +495,8 @@ class GUI:
                             pok.moveset[(moves[choice-1])]['Used']-=1
                             return moves[choice-1]
                     except(TypeError): #prob not a pokemom
+                        return moves[choice-1]
+                    except(KeyError): #Prob back
                         return moves[choice-1]
                 if pressed:
                     #SOUNDS.play(SOUNDS.select)
