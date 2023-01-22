@@ -582,16 +582,16 @@ def autoDamage(host: POKEMOM, target:POKEMOM, gui:GUI) -> int:
     
 def Damage(host: POKEMOM, target:POKEMOM, move:dict, gui:GUI):
     move = host.moveset[move]
-    debug(move)
+    #debug(move)
     if not move['isSP']:
         damage = round(move['DMG']/100*(100+target.defence))
         damage = round(damage/100*(100+host.attack))
-        debug('Not sp')
+        #debug('Not sp')
     else:
         damage = round(move['DMG']/100*(100+target.sp_def))
         damage = round(damage/100*(100+host.sp_att))
-        debug('Is sp')
-    debug(f'Damage: {damage}')
+        #debug('Is sp')
+    #debug(f'Damage: {damage}')
     slogan = move['slogan'].replace('%name%', host.name).replace('%target%', target.name).split(';')
     target.HEALTHBAR.hit(damage)
     gui.renderHealthbar(target, OPP_POK_HPBAR_POS) #Only hardcoded part, perhaps store pos in pok obj?
@@ -654,7 +654,7 @@ if __name__ == '__main__': #for testing
             msg+=FILLER_ICON*(46-len(msg))
             temp = placeholder()
             temp.moveset = randomPoks
-            choice = gui.AttackChoiceMenu(temp, AddBack=False, msg=msg, ShowUses=False)
+            choice = gui.AttackChoiceMenu(temp, AddBack=False, msg=msg, ShowUses=False, ShowSP_VIS=False)
             MainPok = randomPoks[choice]
             MainPok.HEALTHBAR = HEALTHBAR(MainPok.HP)
         
