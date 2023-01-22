@@ -60,6 +60,7 @@ RIGHT_KEY = 'd'
 UP_KEY = 'w'
 DOWN_KEY = 's'
 SOUNDS_FOLDER = 'Sounds'
+ENABLE_DEBUG = False #Enable for debugging
 POKEMOM_FOLDER = 'Pokemom'
 os.system('MODE 10000,10000')
 os.system('title Pokemom!')
@@ -89,7 +90,7 @@ except(FileNotFoundError):
 
 #Settings that get loaded
 CHOOSE_POK = SETTING['Choose pokemom']
-AMOUNT_RANDOM_POK = SETTING['Amount Chosen pokemom']
+#AMOUNT_RANDOM_POK = SETTING['Amount Chosen pokemom']
 
 #Copied from my 'grids' libary
 class Grid:
@@ -177,15 +178,16 @@ class POKEMOM:
 #-------------------------------------------Start standalone functions-------------------------------------------
 
 def debug(msg:str, logfile = 'logs.txt', IsList=False):
-    template=''
-    if type(msg) == 'list' or type(msg) == dict or IsList:
-        for x in msg:
-            template+=f'{x} '
-        with open(logfile, 'a') as file:
-            file.writelines(template+'\n')
-    else:
-        with open(logfile, 'a') as file:
-            file.writelines(str(msg)+'\n')
+    if ENABLE_DEBUG:
+        template=''
+        if type(msg) == 'list' or type(msg) == dict or IsList:
+            for x in msg:
+                template+=f'{x} '
+            with open(logfile, 'a') as file:
+                file.writelines(template+'\n')
+        else:
+            with open(logfile, 'a') as file:
+                file.writelines(str(msg)+'\n')
 
 def pressEnter():
     input()
