@@ -76,10 +76,10 @@ def getInt(msg) -> int:
 
 
 hp = getInt('Enter amount hp (btwn 20 and 40 recommended)')
-DEF = getInt('Enter amount def (btwn 5 and 10 recommended)')
-SP_DEF = getInt('Enter amount SP def (btwn 5 and 10 recommended)')
-ATT = getInt('Enter amount attack (btwn 10 and 20 recommended)')
-SP_ATT = getInt('Enter amount SP attack (btwn 10 and 20 recommended)')
+DEF = getInt('Enter amount def (btwn 5 and 30 recommended)')
+SP_DEF = getInt('Enter amount SP def (btwn 5 and 30 recommended)')
+ATT = getInt('Enter amount attack (btwn 10 and 35 recommended)')
+SP_ATT = getInt('Enter amount SP attack (btwn 10 and 35 recommended)')
 speed = getInt('Enter amount speed (btwn 3 and 6 recommended)')
 
 def getTemplateRaw() -> str:
@@ -155,7 +155,7 @@ x = input('Want to continue? (y/n)\n>>')
 
 if x == 'y':
     with open(f'{name}.json', 'w') as file:
-        makeTemplate(name, template=template, DEF=DEF, MOVESETS=moveset, SPEED=speed)
+        makeTemplate(name, template=template, DEF=DEF, MOVESETS=moveset, SPEED=speed, ATT=ATT, SP_ATT=SP_ATT, SP_DEF=SP_DEF, HP=hp)
     print(f"Done! Put the '{name}.json' in your pokemom folder and enjoy!")
 else:
     print("Canceled!")
