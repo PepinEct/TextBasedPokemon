@@ -65,7 +65,7 @@ RIGHT_KEY = 'd'
 UP_KEY = 'w'
 DOWN_KEY = 's'
 SOUNDS_FOLDER = 'Sounds'
-ENABLE_DEBUG = True #Enable for debugging
+ENABLE_DEBUG = False #Enable for debugging
 POKEMOM_FOLDER = 'Pokemom'
 os.system('MODE 10000,10000')
 os.system('title Pokemom!')
