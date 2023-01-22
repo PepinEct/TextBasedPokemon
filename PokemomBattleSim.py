@@ -13,8 +13,13 @@ import keyboard
 ==================================
             KNOWN BUGS
 ==================================
--Recalulation/translation of moves
-amnt
+------------WORKING-ON------------
+-None
+--------------FIXED---------------
+-The recalculation/translation
+doens't function quite right
+example: sour kid, use any move
+
 ==================================
          RECENT CHANGES
 ==================================
@@ -48,7 +53,7 @@ It does work, kinda unstable but yea
 - ~ is an invisable character that will act as an space
 -Defence is a percentage
 -Not everything in the pokemon.json will function (not implemented)
-- %$& are illegal character(s) (for moves)
+- %$&` are illegal character(s) (for moves)
 
 ===================================
         CURRENTLY WORKING ON
@@ -78,6 +83,8 @@ FIVICO = '%'
 ONEICO = '&'
 ZEROICO = '^'
 TWOICO = '*'
+EIGHTICO = '`'
+
 #loads settings from file
 try:
     with open(SETTING_FILENAME, 'r') as file:
@@ -222,6 +229,7 @@ def makeAmntTemplate(num: int):
     
 
 def TranslateAmntLine(line: str, Bypass='()/'):
+    index = 9999 #to make sure it doesn't interfere with the options
     for char in Bypass:
         line = line.replace(char, f' {char} ')
     templates = {}
@@ -244,15 +252,13 @@ def TranslateAmntLine(line: str, Bypass='()/'):
             tempTemp+=TWOICO
         else:
             if tempTemp!='':
-                templates[tempTemp] = tempAmnt
+                templates[str(index)] = tempAmnt
+                line = line.replace(tempTemp, str(index))
+                index +=1
                 tempTemp=''
                 tempAmnt=0
-    keys = []
-    for y in templates:
-        keys.append(y)
-    keys.reverse()
-    for x in range(len(keys)):
-        line = line.replace(keys[x], str(templates[keys[x]]))
+    for num in templates:
+        line = line.replace(num, str(templates[num]))
     for char in Bypass:
         line = line.replace(f' {char} ', char)
     return line
