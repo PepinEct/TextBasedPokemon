@@ -18,6 +18,10 @@ import keyboard
 ==================================
          RECENT CHANGES
 ==================================
+-The sp def and sp attacks can now
+be used, as well as the isSp var
+(in moves obj in json)
+--------------------------------
 -The attack stat can now be used
 -The attacks can be used a limited
 amount.
@@ -36,7 +40,6 @@ changes.
                 NOTE
 ===================================
 It does work, kinda unstable but yea
-
 ===================================
                 INFO
 ===================================
@@ -50,9 +53,7 @@ It does work, kinda unstable but yea
 ===================================
         CURRENTLY WORKING ON
 ===================================
-Furter updates ig?
-Pokemon choice menu from start
-
+New mode (story type thing)
 """
 LEFT_KEY = 'a'
 RIGHT_KEY = 'd'
@@ -61,11 +62,13 @@ DOWN_KEY = 's'
 SOUNDS_FOLDER = 'Sounds'
 POKEMOM_FOLDER = 'Pokemom'
 os.system('MODE 10000,10000')
+os.system('title Pokemom!')
 MAIN_POK_POS = ((6, 9), (16, 20))
 MAIN_POK_HPBAR_POS = (MAIN_POK_POS[0][0]+3, MAIN_POK_POS[0][1]-1)
 OPP_PO_POS = ((35, 20), (40, 27))
 OPP_POK_HPBAR_POS = (OPP_PO_POS[0][0]-1, OPP_PO_POS[0][1]-4)
 FILLER_ICON = '~'
+SHOW_SP = True
 CHAR_MOVE_BYPASS_CHAR= '%'
 SETTING_FILENAME = 'PokeSettings.json'
 SETTING = {"Choose pokemom": True, "Amount Chosen pokemom": 4}
@@ -160,6 +163,8 @@ class POKEMOM:
         self.speed = data['SPEED']
         self.defence = data['DEF']
         self.attack = data['ATT']
+        self.sp_def = data['SP_DEF']
+        self.sp_att = data['SP_ATT']
         
         #Adds used to moveset
         for move in self.moveset:
@@ -380,7 +385,7 @@ class GUI:
         if self.AUTOUPDATE:
             self.update
 
-    def AttackChoiceMenu(self, pok: POKEMOM, margin=4, AddBack=True, skipMoveset = False, msg='What will you do?', ShowUses=True):
+    def AttackChoiceMenu(self, pok: POKEMOM, margin=4, AddBack=True, skipMoveset = False, msg='What will you do?', ShowUses=True, ShowSP_VIS=True):
         self.renderLineContentBox(msg, 0)
         
         _start = self.ContentBoxDims[0]
@@ -404,15 +409,21 @@ class GUI:
         templine = ''
         lines = []
         for move in moves:
+            xtra_str = ''
+            if ShowSP_VIS and SHOW_SP:
+                try:
+                    if pok.moveset[move]['isSP']:
+                        xtra_str+='!'
+                except(KeyError): pass #its the 'back' option wich is added to the 'moves'
             if isEven(pos):
                 lines.append(templine)
                 templine=''
                 linepos+=1
             if not ShowUses:
-                templine+=f'{FILLER_ICON*margin}{pos+1} {move}'
+                templine+=f'{FILLER_ICON*margin}{pos+1} {xtra_str}{move}'
             else:
                 try:
-                    templine+=f'{FILLER_ICON*margin}{pos+1} {move}({makeAmntTemplate(pok.moveset[move]["Used"])}/{makeAmntTemplate(pok.moveset[move]["MAX_USE"])})'
+                    templine+=f'{FILLER_ICON*margin}{pos+1} {xtra_str}{move}({makeAmntTemplate(pok.moveset[move]["Used"])}/{makeAmntTemplate(pok.moveset[move]["MAX_USE"])})'
                 except(KeyError): pass #Its prob 'back' or any other move that isnt part of the moveset (for setting etc)
 
             pos+=1
@@ -555,8 +566,12 @@ def autoDamage(host: POKEMOM, target:POKEMOM, gui:GUI) -> int:
     for move in host.moveset:
         temp.append(move)
     using = host.moveset[temp[random.randint(0, len(temp)-1)]]
-    damage = round(using['DMG']/100*(100-target.defence))
-    damage = round(damage/100*(100-host.attack))
+    if not using['isSP']:
+        damage = round(using['DMG']/100*(100+target.defence))
+        damage = round(damage/100*(100+host.attack))
+    else:
+        damage = round(using['DMG']/100*(100+target.sp_def))
+        damage = round(damage/100*(100+host.sp_att))
     target.HEALTHBAR.hit(damage)
     gui.renderHealthbar(target, MAIN_POK_HPBAR_POS) #Only hardcoded part
     slogan = using['slogan'].replace('%name%', host.name).replace('%target%', target.name).split(';')
@@ -567,9 +582,16 @@ def autoDamage(host: POKEMOM, target:POKEMOM, gui:GUI) -> int:
     
 def Damage(host: POKEMOM, target:POKEMOM, move:dict, gui:GUI):
     move = host.moveset[move]
-
-    damage = round(move['DMG']/100*(100-target.defence))
-    damage = round(damage/100*(100-host.attack))
+    debug(move)
+    if not move['isSP']:
+        damage = round(move['DMG']/100*(100+target.defence))
+        damage = round(damage/100*(100+host.attack))
+        debug('Not sp')
+    else:
+        damage = round(move['DMG']/100*(100+target.sp_def))
+        damage = round(damage/100*(100+host.sp_att))
+        debug('Is sp')
+    debug(f'Damage: {damage}')
     slogan = move['slogan'].replace('%name%', host.name).replace('%target%', target.name).split(';')
     target.HEALTHBAR.hit(damage)
     gui.renderHealthbar(target, OPP_POK_HPBAR_POS) #Only hardcoded part, perhaps store pos in pok obj?
