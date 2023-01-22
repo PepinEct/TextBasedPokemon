@@ -13,8 +13,8 @@ import keyboard
 ==================================
             KNOWN BUGS
 ==================================
--None
-
+-Recalulation/translation of moves
+amnt
 ==================================
          RECENT CHANGES
 ==================================
