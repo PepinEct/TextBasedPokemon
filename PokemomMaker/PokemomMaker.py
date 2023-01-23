@@ -1,7 +1,6 @@
 import json
 
 
-
 #---------------------------------------------------------------Start grids lib---------------------------------------------------------------
 class Grid:
     GRID_MAX_X=10
@@ -128,7 +127,7 @@ def makeTemplate(name, LVL=1, template='',HP=15, ATT=5, SP_ATT=5, DEF=5, SP_DEF=
     if len(moveSets) == 0:
         for x in range(4):
             moveSets[f'move{x+1}'] = {"slogan":'', 'SP_DMG':1, 'DMG':1}
-    template = {'name':name,'template':template, 'moveset':moveSets,'HP':HP, 'LVL':LVL, 'items':[],'ATT':ATT, 'SP_ATT':SP_ATT, 'DEF':DEF, 'SP_DEF':SP_DEF, 'SPEED':SPEED}
+    template = {'name':name,'template':template, 'moveset':moveSets,'HP':HP,'ATT':ATT, 'SP_ATT':SP_ATT, 'DEF':DEF, 'SP_DEF':SP_DEF, 'SPEED':SPEED}
     with open(f'{name}.json', 'w') as file:
         json.dump(template, file, indent=4)
 
