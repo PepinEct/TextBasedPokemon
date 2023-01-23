@@ -1,0 +1,36 @@
+{
+    "name": "Piblessu",
+    "template": "|)_.._(| /___\n\n(o^_^o)Z__7\n\n(\"____\")Z7",
+    "moveset": {
+        "Sneeze": {
+            "slogan": "%name% sneezed all over %target%",
+            "DMG": 7,
+            "MAX_USE": 1,
+            "isSP": true
+        },
+        "imitate": {
+            "slogan": "%name% imitated a famous videogame character, %target% knew it",
+            "DMG": 5,
+            "MAX_USE": 5,
+            "isSP": true
+        },
+        "Peep": {
+            "slogan": "%name% peeped, %target% already had its suspision that it was a little rat",
+            "DMG": 5,
+            "MAX_USE": 5,
+            "isSP": true
+        },
+        "Static": {
+            "slogan": "%name% rolled over a carpet and shocked %target%",
+            "DMG": 4,
+            "MAX_USE": 15,
+            "isSP": true
+        }
+    },
+    "HP": 30,
+    "ATT": 5,
+    "SP_ATT": 20,
+    "DEF": 12,
+    "SP_DEF": 15,
+    "SPEED": 8
+}
