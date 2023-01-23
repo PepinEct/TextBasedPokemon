@@ -1,0 +1,38 @@
+{
+    "name": "Mr KittyPaw",
+    "template": " (O)  (O)\n\n   =/\\=",
+    "moveset": {
+        "Miauw": {
+            "slogan": "%name% miauwed, %target% finds it very cute and hurts himself while admiring %name%",
+            "DMG": 4,
+            "MAX_USE": 5,
+            "isSP": false
+        },
+        "Lick": {
+            "slogan": "%name% licked %target% on its face, %target% doesn't really mind",
+            "DMG": 3,
+            "MAX_USE": 15,
+            "isSP": true
+        },
+        "Scratch": {
+            "slogan": "%name% scratched %target%, now %target% is bleeding, luckly %target% had some bandage with him",
+            "DMG": 0,
+            "MAX_USE": 20,
+            "isSP": false
+        },
+        "Bark": {
+            "slogan": "%name% barked, it starteld %target%!",
+            "DMG": 10,
+            "MAX_USE": 1,
+            "isSP": true
+        }
+    },
+    "HP": 50,
+    "LVL": 1,
+    "items": [],
+    "ATT": 20,
+    "SP_ATT": 15,
+    "DEF": 10,
+    "SP_DEF": 15,
+    "SPEED": 8
+}
