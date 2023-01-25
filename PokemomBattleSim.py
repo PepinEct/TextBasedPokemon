@@ -63,7 +63,7 @@ New mode (story type thing)
 
 #For dev only
 FORCED_MAIN = "Test.json"
-FORCE_MAIN = True
+FORCE_MAIN = False
 FORCED_OPP = "Basic Guy.json"
 FORCE_OPP = False
 
