@@ -63,7 +63,7 @@ New mode (story type thing)
 
 #For dev only
 FORCED_MAIN = "Test.json"
-FORCE_MAIN = False
+FORCE_MAIN = True
 FORCED_OPP = "Basic Guy.json"
 FORCE_OPP = False
 
@@ -329,6 +329,8 @@ class HEALTHBAR:
         rest = self.HPBAR_MAXLEN-fullbar
         self.template = f'|{"="*fullbar}{"-"*rest}|{self.hpLeft}'+' '*self.padding
         #debug(f'{self.template}')
+
+
 
 
 
@@ -883,9 +885,7 @@ if __name__ == '__main__': #for testing
                     randomPoks = randomPok(4)
                     msg = 'Choose one:'
                     msg+=FILLER_ICON*(46-len(msg))
-                    temp = placeholder()
-                    temp.moveset = randomPoks
-                    choice = gui.AttackChoiceMenu(temp, AddBack=False, msg=msg, ShowUses=False, ShowSP_VIS=False)
+                    choice = gui.SimpleChoiceMenu(randomPoks, AddBack=False, msg=msg)
                     MainPok = randomPoks[choice]
                     MainPok.HEALTHBAR = HEALTHBAR(MainPok.HP)
                 
