@@ -6,7 +6,6 @@ import time
 import random
 
 #External libaries
-from playsound import playsound
 import keyboard
 
 """
