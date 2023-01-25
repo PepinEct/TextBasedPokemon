@@ -1,0 +1,36 @@
+{
+    "name": "Paddo",
+    "template": " _____\n/ O.O \\ \n  ||\n  ||\n  ||",
+    "moveset": {
+        "Soup": {
+            "slogan": ">%name% cut off part of his hand and made soup of it, %target% took a sip and is now sick",
+            "DMG": 5,
+            "MAX_USE": 10,
+            "isSP": true
+        },
+        "Slap": {
+            "slogan": "%name% slapped %target% in the face, %target% didn't know shrooms could slap that hard",
+            "DMG": 6,
+            "MAX_USE": 10,
+            "isSP": false
+        },
+        "Poison": {
+            "slogan": "%name% poisoned %target%, for the first time in ages %target% felt something once again",
+            "DMG": 4,
+            "MAX_USE": 5,
+            "isSP": true
+        },
+        "Fake friend": {
+            "slogan": "%name% promised %target% to be best friends (%name% didnt't mean it)",
+            "DMG": 4,
+            "MAX_USE": 15,
+            "isSP": false
+        }
+    },
+    "HP": 22,
+    "ATT": 150,
+    "SP_ATT": 200,
+    "DEF": 25,
+    "SP_DEF": 50,
+    "SPEED": 3
+}
