@@ -331,15 +331,6 @@ class HEALTHBAR:
         #debug(f'{self.template}')
 
 
-class SOUNDS:
-    def play(x):
-        y = threading.Thread(target=x)
-        #y.setDaemon(True)
-        y.start()
-    def select():
-        playsound(f"{SOUNDS_FOLDER}/select.wav")
-
-
 
 class GUI:
     def __init__(self) -> None:
