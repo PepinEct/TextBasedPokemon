@@ -58,7 +58,9 @@ It does work, kinda unstable but yea
 ===================================
         CURRENTLY WORKING ON
 ===================================
-New mode (story type thing)
+-New mode (story type thing)
+-Reworking the optionmenu's for
+better overview
 """
 LEFT_KEY = 'a'
 RIGHT_KEY = 'd'
