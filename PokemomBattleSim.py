@@ -13,6 +13,8 @@ import keyboard
             KNOWN BUGS
 ==================================
 --------------FIXED--------------
+-Poke option menu caused crashes,
+is not fixed
 -The back button didn't appear and
 if pressed it caused a crash
 -The recalculation/translation
@@ -62,9 +64,9 @@ New mode (story type thing)
 """
 
 #For dev only
-FORCED_MAIN = "Test.json"
-FORCE_MAIN = True
-FORCED_OPP = "Basic Guy.json"
+FORCED_MAIN = ""
+FORCE_MAIN = False
+FORCED_OPP = ""
 FORCE_OPP = False
 
 LEFT_KEY = 'a'
@@ -75,8 +77,8 @@ AUTOMODE = False #for fun only, not practicle
 SOUNDS_FOLDER = 'Sounds'
 ENABLE_DEBUG = False #Enable for debugging
 POKEMOM_FOLDER = 'Pokemom'
-os.system('MODE 10000,10000')
-os.system('title Pokemom!')
+os.system('MODE 10000,10000') #cmd usually clears the part of the screen that isn't visable, this prevents that
+os.system('title Pokemom!') #title for cmd screen
 MAIN_POK_POS = ((6, 9), (16, 20))
 MAIN_POK_HPBAR_POS = (MAIN_POK_POS[0][0]+3, MAIN_POK_POS[0][1]-1)
 OPP_PO_POS = ((35, 20), (40, 27))
@@ -328,7 +330,7 @@ class HEALTHBAR:
         fullbar = ceil(self.hpLeft/self.HPPERBAR)
         rest = self.HPBAR_MAXLEN-fullbar
         self.template = f'|{"="*fullbar}{"-"*rest}|{self.hpLeft}'+' '*self.padding
-        #debug(f'{self.template}')
+
 
 
 
@@ -437,7 +439,7 @@ class GUI:
             loop +=1
         if self.AUTOUPDATE:
             self.update
-    def SimpleChoiceMenu(self, options: list, margin=1, AddBack=True, msg='', isPok=False):
+    def SimpleChoiceMenu(self, options: list, margin=1, AddBack=True, msg='', isPok=False, returnIndex=False):
 
         #ONLY FOR NON ATTACKS, or at least, 
         if AddBack: #adds back option
@@ -453,6 +455,7 @@ class GUI:
             curLine+=1
         str_man = strManager() #for str largest etc etc
         evenPos = 1
+        strOptions = []
         for option in options:
             #adds all the options
             totalLen = 0
@@ -465,6 +468,8 @@ class GUI:
                     pass #Skips the back option
             if not isEven(evenPos):
                 str_man.put(len(option)+totalLen)
+            if type(options)==dict:
+                strOptions.append(option)
         index = 0
         lineTemplate = ''
         for option in options:
@@ -532,7 +537,13 @@ class GUI:
                         pressed = True
                 elif keyboard.is_pressed('\n'):
                     time.sleep(0.1)
-                    return options[choice-1]
+                    if returnIndex:
+                        return (choice-1)
+
+                    if not type(options) == dict:
+                        return options[choice-1]
+                    else:
+                        return strOptions[choice-1]
                 if pressed:
                     #SOUNDS.play(SOUNDS.select)
                     CHOICEUPDATE(choice)
@@ -616,7 +627,7 @@ class GUI:
                 try:
                     if pok.moveset[move]['isSP']:
                         xtra_str+='!'
-                except(KeyError) as e: debug(e) #its the 'back' option wich is added to the 'moves'
+                except(KeyError) as e: pass #its the 'back' option wich is added to the 'moves'
             if isEven(pos):
                 lines.append(templine)
                 templine=''
@@ -805,16 +816,12 @@ def autoDamage(host: POKEMOM, target:POKEMOM, gui:GUI) -> int:
 
 def Damage(host: POKEMOM, target:POKEMOM, move:dict, gui:GUI):
     move = host.moveset[move]
-    #debug(move)
     if not move['isSP']:
         damage = round(move['DMG']/100*(100-target.defence))
         damage = round(damage/100*(100+host.attack))
-        #debug('Not sp')
     else:
         damage = round(move['DMG']/100*(100-target.sp_def))
         damage = round(damage/100*(100+host.sp_att))
-        #debug('Is sp')
-    #debug(f'Damage: {damage}')
     slogan = move['slogan'].replace('%name%', host.name).replace('%target%', target.name).split(';')
     target.HEALTHBAR.hit(damage)
     gui.renderHealthbar(target, OPP_POK_HPBAR_POS) #Only hardcoded part, perhaps store pos in pok obj?
@@ -841,7 +848,6 @@ def randomPok(amount: int) -> list:
         pos = random.randint(0, len(total)-(1+x))
         poks[total[pos].name] = total[pos]
         total.pop(pos)
-
     return poks
 
 
@@ -1047,14 +1053,12 @@ if __name__ == '__main__': #for testing
             try:
                 savedata = LoadDataFile(SAVEFILENAME)
             except(Exception) as e: 
-                #debug(f"Error loading data: '{e}'")
                 SaveDataFile(SAVEFILENAME, savedata_DEFTEMPLATE)
                 savedata = LoadDataFile(SAVEFILENAME)
             #Metadata
             try:
                 metaData = LoadDataFile(METADATA_FILENAME, ReturnJson=True)
             except(Exception) as e: 
-                #debug(f"Error loading data: '{e}'")
                 SaveDataFile(METADATA_FILENAME, metaData_DEFTEMPLATE)
                 
             #Choosing starter
@@ -1091,7 +1095,7 @@ if __name__ == '__main__': #for testing
             coffeeholder = placeholder()
             coffeeholder.template = coffee
             gui.renderPok(coffeeholder, (5, 5), (10, 25))
-            gui.renderTextContentBox("You shouldn't be here, well anyway sinds you're here, have a cup of coffee :)")
+            gui.renderTextContentBox("You shouldn't be here, well since you're here anyway, have a cup of coffee :)")
             gui.update()
             input()
             input()
