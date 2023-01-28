@@ -14,7 +14,7 @@ import keyboard
 ==================================
 --------------FIXED--------------
 -Poke option menu caused crashes,
-is not fixed
+is now fixed
 -The back button didn't appear and
 if pressed it caused a crash
 -The recalculation/translation
